@@ -1,6 +1,7 @@
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import abi from './utils/DecentralizedSocial.json';
+import './App.css';
 
 const App = () => {
   // Setters and Getters
@@ -135,25 +136,33 @@ const App = () => {
   }, [])
 
   return (
-    <div>
-      <p>Chris Pondoc</p>
+    <div className="container">
+      <br />
+      <h1>Feed</h1>
+      <p>Catch up to date on all current events</p>
       {!currentAccount && (
           <button className="waveButton" onClick={connectWallet}>
             Connect Wallet
           </button>
       )}
-      {currentAccount && (<button className="waveButton" onClick={createNewPost}>
-          Wave at Me
-      </button>)}
+      {currentAccount && (<button type="button" className="btn btn-light" onClick={createNewPost}>
+          Create New Post
+        </button>)}
       {allPosts.map((post, index) => {
           return (
-            <div key={index} style={{ backgroundColor: "OldLace", marginTop: "16px", padding: "8px" }}>
-              <div>Address: {post.address}</div>
-              <div>Time: {post.timestamp.toString()}</div>
-              <div>Message: {post.content}</div>
-            </div>)
+            <div key={index} className="card">
+              <div className="card-body">
+                <h3>{post.address}</h3>
+                <h5>{post.timestamp.toString()}</h5>
+                <p>{post.content}</p>
+              </div>
+              <div class="card-footer text-muted">
+                <i class="bi bi-heart-fill"></i> Like
+              </div>
+          </div>
+          )
         })}
-    </div>
+      </div>
   );
 }
 
